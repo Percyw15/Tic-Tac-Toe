@@ -3,7 +3,10 @@
 .selection_section:hover {
     background-color: rgb(211, 211, 211);
 }
+.no-hover:hover {
+    background-color: initial;
 
+}
 *, html{
     border: 0px;
     margin: 0px;
