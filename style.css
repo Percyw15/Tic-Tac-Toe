@@ -20,6 +20,23 @@ body {
     align-items: center;
     justify-content: center;
 }
+.input-player-names{
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center;
+    justify-content: center;
+}
+.input-player-names_container{
+    display: flex;
+    background-color: #adadad15;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(0, 0, 0, 0.253);
+    border-radius: 10px;
+    width: 360px;
+    height: 260px;
+}
 #game{
     display: grid;
     grid-template-columns: repeat(3,1fr);
