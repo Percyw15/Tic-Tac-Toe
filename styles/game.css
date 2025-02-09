@@ -1,15 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Tai+Heritage+Pro:wght@400;700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Vujahday+Script&display=swap');
-.selection_section:hover {
-    background-color: rgb(211, 211, 211);
-}
-.no-hover:hover {
-    background-color: initial;
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Trade+Winds&display=swap');
 
+html, * {
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
 }
-
 body {
     height: 100vh;
-    gap: 100px;
+    gap: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -33,6 +33,7 @@ body {
     justify-content: center;
     align-items: center;
 }
+
 .game_status {
     display: flex;
     flex-direction: column;
@@ -67,14 +68,21 @@ body {
     text-align: center;
 }
 .marker_X {
-    background-image: url(assets/X.svg);
+    background-image: url(../assets/X.svg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 .marker_O {
-    background-image: url(assets/O.svg);
+    background-image: url(../assets/O.svg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+.game_title > h1 {
+    font-size: 50px;
+    font-family: "Trade Winds", serif;
+    font-weight: 400;
+    font-style: normal;
 }

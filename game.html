@@ -3,9 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/game.css">
+    <script src="scripts/game.js" defer></script>
     <title>Tic Tac Toe</title>
 </head>
 <body>
-    <div id="game"></div>
+    <div class="game_title"><h1>Tic Tac Toe</h1></div>
+
+    <div id="game">
+
+    </div>
+    <div class="game_status">
+        <div class="cooldown_player"></div> 
+        <div class="players">
+            <div class="player">
+                <p id="player_one">Player One</p>
+                <img src="assets/X.svg" alt="">
+            </div>
+            <div class="player">
+                <p id="player_two">Player Two</p>
+                <img src="assets/O.svg" alt="">
+            </div>
+        </div>
+    </div>
 </body>
 </html>
