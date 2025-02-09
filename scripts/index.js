@@ -1,3 +1,9 @@
+const nick = document.getElementById('input-name');
+const next = document.getElementById('submit-input-name');
+let PlayerOne = null;
+let PlayerTwo = null;
+
+let currentPlayers = 0
 function BoardHandler() {
     this.WinningCombinations = [
         //Horizontal
@@ -129,7 +135,37 @@ function GameHandler(PlayerOne, PlayerTwo) {
 };
 
 function takePlayerNames(){
+    const maxPlayers = 2
 
-}
+    if (nick.length <= 15 && nick.length > 0 ){
+        console.log(nick,'e valido');
+
+    }
+    else {
+        console.log('nick invalido');
+    };
+
+};
+
+next.addEventListener('click',()=>{
+    
+    takePlayerNames();
+    currentPlayers+= 1
+        if (currentPlayers ===1){
+            PlayerOne = new Player(nick.value,'X');
+
+        }
+        else if (currentPlayers ===2){
+            PlayerTwo = new Player(nick.value,'O');
+            
+        };
+});
+
+nick.addEventListener('keydown',(event)=>{
+    if (event.key === 'Enter'){
+        event.preventDefault();
+        next.click();
+    };
+});
 
 
