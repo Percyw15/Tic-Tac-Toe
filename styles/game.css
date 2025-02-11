@@ -26,14 +26,17 @@ body {
     justify-items: center;
     align-items: center;
 }
-.selection_section {
+
+.selection {
     width: 178px;
     height: 178px;
     border: 1px solid black;
     justify-content: center;
     align-items: center;
 }
-
+.selection_section:hover {
+    background-color: rgba(0, 0, 0, 0.137);
+}
 .game_status {
     display: flex;
     flex-direction: column;

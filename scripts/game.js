@@ -1,4 +1,7 @@
 let currentPlayers = 0
+window.addEventListener('beforeunload',()=>{
+    sessionStorage.removeItem('Players');
+});
 function BoardHandler() {
     this.WinningCombinations = [
         //Horizontal
@@ -28,7 +31,8 @@ function BoardHandler() {
     const configStyleElement = function (item) {
         const selectionElement = document.createElement('div');
         selectionElement.id = item;
-        selectionElement.className = 'selection_section';
+        selectionElement.className = 'selection selection_section';
+        
         Box.appendChild(selectionElement);
         return selectionElement;
     };
@@ -74,7 +78,7 @@ function GameHandler(PlayerOne, PlayerTwo) {
     function deactivateGame() {
         const elements = document.getElementsByClassName('selection_section');
         Object.values(elements).forEach((value) => {
-            value.classList.add('no-hover');
+            value.classList.remove('selection_section');
 
             value.removeEventListener('click', handleClick);
         });
@@ -102,7 +106,7 @@ function GameHandler(PlayerOne, PlayerTwo) {
         selection.classList.add(marker);
         CurrentPlayer.ButtonsSelected.push(selection.id);
         console.log(CurrentPlayer.name + "=" + CurrentPlayer.ButtonsSelected);
-        selection.classList.add('no-hover');
+        selection.classList.remove('selection_section');
     };
 
     function winner(plr) {
@@ -137,6 +141,3 @@ function startGame(){
 
 startGame()
 
-window.addEventListener('beforeunload',()=>{
-    sessionStorage.removeItem('Players');
-});
