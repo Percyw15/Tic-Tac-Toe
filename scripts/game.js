@@ -45,8 +45,9 @@ function BoardHandler() {
 
 function GameHandler(PlayerOne, PlayerTwo) {
     let CurrentPlayer = PlayerOne;
-    let Board; 
-
+    let Board;
+    let contButtonsClicked;
+    let numSequenceOfPlayer;
     function updateStatus() {
 
     };
@@ -58,15 +59,18 @@ function GameHandler(PlayerOne, PlayerTwo) {
 
     function handleClick() {
         toMark(this);
-        setTimeout(() => {
-            checkVitory(Board.WinningCombinations); 
-            CurrentPlayer = CurrentPlayer === PlayerOne ? PlayerTwo : PlayerOne;
-        }, 0);
+        requestAnimationFrame(()=>{
+            setTimeout(() => {
+                checkVitory(Board.WinningCombinations); 
+                CurrentPlayer = CurrentPlayer === PlayerOne ? PlayerTwo : PlayerOne;
+            }, 0);
+        });
+        
     };
 
     function activateGame() {
+        contButtonsClicked = 0;
         updateStatusNames();
-
         Board = new BoardHandler();  
         const BoardSelections = Board.selections;
 
@@ -85,20 +89,29 @@ function GameHandler(PlayerOne, PlayerTwo) {
     };
 
     function checkVitory(WinningCombinations) {  
+        contButtonsClicked += 1;
+        let hasWinner = false;
         WinningCombinations.forEach(item => {
+            numSequenceOfPlayer = 0;
 
-            let numSequenceOfPlayer = 0;
             Object.values(CurrentPlayer.ButtonsSelected).forEach(value => {
                 const result = item.includes(value);
+
                 if (result === true) {
                     numSequenceOfPlayer += 1;
                 };
-                if (numSequenceOfPlayer === 3) {
+                if (numSequenceOfPlayer === 3){
                     winner(CurrentPlayer);
+                    hasWinner = true
                     deactivateGame();
                 };
             });
+            
         });
+        if (!hasWinner && contButtonsClicked === 9){
+            draw()            
+        };
+        
     };
 
     function toMark(selection) {
@@ -111,6 +124,9 @@ function GameHandler(PlayerOne, PlayerTwo) {
 
     function winner(plr) {
         alert(plr.name + " venceu");
+    };
+    function draw(){
+        alert('Empate');
     };
 
     this.Start = function () {
