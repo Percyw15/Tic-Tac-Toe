@@ -3,24 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"  href="styles/names.css">
-    <script src="scripts/index.js" type="module" defer></script>
+    <link rel="stylesheet"  href="styles/style.css">
+    <script src="scripts/game.js" type="module" defer></script>
+    <script src="scripts/players.js" type="module" defer></script>
+    <link rel="shortcut icon" href="assets/TopBarIcon.png" type="image/x-icon">
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, proxy-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
     <title>Tic Tac Toe</title>
-    
 </head>
 
 <body>
-    <div class="game_title"><h1>Tic Tac Toe</h1></div>
-    <div class="input_player_names">
-        <div class="input_player_names_container">
+    <div class="overlay">
+        <div class="game_title"><h1>Tic Tac Toe</h1></div>
+        <div id="players_checkout" class="modal">
             <div class="player">
                 <h2>Player One</h2>
                 <img src="assets/X.svg" alt="">
             </div>
             <input id="input_name" type="text">
-            <input id="submit_input_name" type="submit" value="Next"  >
+            <input class="button" id="submit_input_name" type="submit" value="Next"  >
+        </div>
+        <div id="game_checkout" class="modal">
+            <button id="reset_button" class="button">Reset</button>
+            <button id="finished_button" class="button">Finished</button>
         </div>
     </div>
-    
+    <div id="game"></div>
+    <div class="game_status">
+        <div class="cooldown_player"></div> 
+        <div class="players">
+            <div class="player">
+                <p id="player_one">Player One</p>
+                <img src="assets/X.svg" alt="">
+            </div>
+            <div class="player">
+                <img src="assets/O.svg" alt="">
+                <p id="player_two">Player Two</p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

@@ -1,8 +1,9 @@
+import {startGame} from "./game.js"
+
 const nick = document.getElementById('input_name');
 const next = document.getElementById('submit_input_name');
 let PlayerOne = null;
 let PlayerTwo = null;
-
 let currentPlayers = 0
 
 function Player(name, symbol) {
@@ -29,9 +30,12 @@ function takePlayerNames(){
                 'PO':PlayerOne,
                 'PT':PlayerTwo
             }));
-            window.location.href = "game.html";
+            document.querySelector('.overlay').style.display = 'none';
+            document.body.classList.add('game_page');
+            document.querySelector('#players_checkout').style.display = 'none';
+            document.querySelector('.game_title').remove();
+            startGame()
         };
-
     } 
     else {
         console.log('Nick inválido');
@@ -61,5 +65,4 @@ nick.addEventListener('keyup',(event)=>{
         next.style.borderColor = "black"
     };
 });
-
 

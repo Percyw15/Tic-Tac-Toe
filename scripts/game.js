@@ -44,10 +44,13 @@ function BoardHandler() {
 }
 
 function GameHandler(PlayerOne, PlayerTwo) {
+    const reset_button = document.getElementById('reset_button');
+    const finished_button = document.getElementById('finished_button');
     let CurrentPlayer = PlayerOne;
     let Board;
     let contButtonsClicked;
     let numSequenceOfPlayer;
+
     function updateStatus() {
 
     };
@@ -69,6 +72,7 @@ function GameHandler(PlayerOne, PlayerTwo) {
     };
 
     function activateGame() {
+        
         contButtonsClicked = 0;
         updateStatusNames();
         Board = new BoardHandler();  
@@ -80,8 +84,13 @@ function GameHandler(PlayerOne, PlayerTwo) {
     };
 
     function deactivateGame() {
-        const elements = document.getElementsByClassName('selection_section');
-        Object.values(elements).forEach((value) => {
+        const Selections = document.getElementsByClassName('selection_section');
+        const overlay = document.querySelector('.overlay');
+        overlay.style.display = 'flex';
+        overlay.style.backgroundImage = 'none';
+        overlay.style.backgroundColor = 'rgba(0, 0, 0, .3)'
+        document.querySelector('#game_checkout').style.display='flex';
+        Object.values(Selections).forEach((value) => {
             value.classList.remove('selection_section');
 
             value.removeEventListener('click', handleClick);
@@ -106,13 +115,14 @@ function GameHandler(PlayerOne, PlayerTwo) {
                     deactivateGame();
                 };
             });
-            
         });
+
         if (!hasWinner && contButtonsClicked === 9){
-            draw()            
+            draw();
         };
         
     };
+   
 
     function toMark(selection) {
         const marker = "marker_" + CurrentPlayer.symbol;
@@ -123,10 +133,10 @@ function GameHandler(PlayerOne, PlayerTwo) {
     };
 
     function winner(plr) {
-        alert(plr.name + " venceu");
+        deactivateGame();
     };
     function draw(){
-        alert('Empate');
+        deactivateGame();
     };
 
     this.Start = function () {
@@ -137,12 +147,29 @@ function GameHandler(PlayerOne, PlayerTwo) {
         deactivateGame();
     };
 
-    this.Restart = function () {
+    function restart(){
         deactivateGame();
         setTimeout(() => { activateGame() }, 1); 
     };
+    
+    reset_button.addEventListener('mousedown',()=>{
+        reset_button.style.borderColor = "white";
+    });
+
+    reset_button.addEventListener('mouseup',()=>{
+        reset_button.style.borderColor = 'black';
+        restart()
+    });
+    finished_button.addEventListener('mousedown',()=>{
+        finished_button.style.borderColor = "white";
+    });
+
+    finished_button.addEventListener('mouseup',()=>{
+        finished_button.style.borderColor = 'black';
+        location.reload()
+    });
 };
-function startGame(){
+export function startGame(){
 
     if (sessionStorage.getItem('Players') == null){
         window.location.href = "index.html"
@@ -154,6 +181,4 @@ function startGame(){
         
     };
 };
-
-startGame()
 
