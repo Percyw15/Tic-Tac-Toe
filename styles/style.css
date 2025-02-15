@@ -92,7 +92,10 @@ h5 {
     height: 35px;
     border: 2px solid black ;
 }
-
+.outcome {
+    color: black;
+    border-radius: 10px;
+}
 .marker_X {
     background-image: url(../assets/X.svg);
     background-size: cover;

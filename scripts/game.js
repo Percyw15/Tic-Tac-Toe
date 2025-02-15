@@ -46,6 +46,8 @@ function BoardHandler() {
 function GameHandler(PlayerOne, PlayerTwo) {
     const reset_button = document.getElementById('reset_button');
     const finished_button = document.getElementById('finished_button');
+    const overlay = document.querySelector('.overlay');
+    const outcome = document.querySelector('.outcome');
     let CurrentPlayer = PlayerOne;
     let Board;
     let contButtonsClicked;
@@ -72,8 +74,9 @@ function GameHandler(PlayerOne, PlayerTwo) {
     };
 
     function activateGame() {
-        
+        overlay.style.display = 'none';
         contButtonsClicked = 0;
+        CurrentPlayer = PlayerOne;
         updateStatusNames();
         Board = new BoardHandler();  
         const BoardSelections = Board.selections;
@@ -82,20 +85,30 @@ function GameHandler(PlayerOne, PlayerTwo) {
             selection.addEventListener('click', handleClick, { once: true });
         });
     };
-
+    function restart(){
+        const Selections = document.getElementsByClassName('selection');
+        Object.values(Selections).forEach((value) => {
+            value.remove();
+        });
+        PlayerOne.ButtonsSelected = [];
+        PlayerTwo.ButtonsSelected = [];
+        
+        activateGame()
+    };
     function deactivateGame() {
         const Selections = document.getElementsByClassName('selection_section');
-        const overlay = document.querySelector('.overlay');
+        
         overlay.style.display = 'flex';
         overlay.style.backgroundImage = 'none';
-        overlay.style.backgroundColor = 'rgba(0, 0, 0, .3)'
+        overlay.style.backgroundColor = 'white'
         document.querySelector('#game_checkout').style.display='flex';
+        
         Object.values(Selections).forEach((value) => {
             value.classList.remove('selection_section');
-
             value.removeEventListener('click', handleClick);
         });
     };
+    
 
     function checkVitory(WinningCombinations) {  
         contButtonsClicked += 1;
@@ -133,9 +146,11 @@ function GameHandler(PlayerOne, PlayerTwo) {
     };
 
     function winner(plr) {
+        outcome.innerHTML = `${plr.name} venceu!`
         deactivateGame();
     };
     function draw(){
+        outcome.innerHTML = 'Draw'
         deactivateGame();
     };
 
@@ -147,10 +162,7 @@ function GameHandler(PlayerOne, PlayerTwo) {
         deactivateGame();
     };
 
-    function restart(){
-        deactivateGame();
-        setTimeout(() => { activateGame() }, 1); 
-    };
+    
     
     reset_button.addEventListener('mousedown',()=>{
         reset_button.style.borderColor = "white";
