@@ -95,7 +95,11 @@ function GameHandler(PlayerOne, PlayerTwo) {
 
     function endGame(text) {
         const Selections = document.getElementsByClassName('selection_section');
-        outcome.innerHTML = text;
+        if (text){
+            console.log(text);
+            outcome.innerHTML = text;  
+        };
+        
         overlay.style.display = 'flex';
         overlay.style.backgroundImage = 'none';
         overlay.style.backgroundColor = 'white'
@@ -144,7 +148,9 @@ function GameHandler(PlayerOne, PlayerTwo) {
 
     
     function winner(plr) {
-        endGame(`${plr.name} venceu!`);
+        const string = `${plr.name} venceu!`;
+        console.log(plr.name,string);
+        endGame(string);
     };
     function draw(){
         endGame('Draw');
@@ -154,20 +160,13 @@ function GameHandler(PlayerOne, PlayerTwo) {
         activateGame();
     };
     
-    //Effects and game checkout//
-    reset_button.addEventListener('mousedown',()=>{
-        reset_button.style.borderColor = "white";
-    });
-
-    reset_button.addEventListener('mouseup',()=>{
+    //Buttons from the game over screen//
+    reset_button.addEventListener('click',()=>{
         reset_button.style.borderColor = 'black';
         restart()
     });
-    finished_button.addEventListener('mousedown',()=>{
-        finished_button.style.borderColor = "white";
-    });
-
-    finished_button.addEventListener('mouseup',()=>{
+    
+    finished_button.addEventListener('click',()=>{
         
         finished_button.style.borderColor = 'black';
         window.location.href = window.location.href + "?nocache=" + new Date().getTime();
