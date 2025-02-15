@@ -44,6 +44,7 @@ function BoardHandler() {
 }
 
 function GameHandler(PlayerOne, PlayerTwo) {
+    //Variables and constants//
     const reset_button = document.getElementById('reset_button');
     const finished_button = document.getElementById('finished_button');
     const overlay = document.querySelector('.overlay');
@@ -53,10 +54,7 @@ function GameHandler(PlayerOne, PlayerTwo) {
     let contButtonsClicked;
     let numSequenceOfPlayer;
 
-    function updateStatus() {
-
-    };
-
+    //Functions//
     function updateStatusNames() {
         document.getElementById('player_one').textContent = PlayerOne.name;
         document.getElementById('player_two').textContent = PlayerTwo.name;
@@ -70,7 +68,6 @@ function GameHandler(PlayerOne, PlayerTwo) {
                 CurrentPlayer = CurrentPlayer === PlayerOne ? PlayerTwo : PlayerOne;
             }, 0);
         });
-        
     };
 
     function activateGame() {
@@ -85,6 +82,7 @@ function GameHandler(PlayerOne, PlayerTwo) {
             selection.addEventListener('click', handleClick, { once: true });
         });
     };
+
     function restart(){
         const Selections = document.getElementsByClassName('selection');
         Object.values(Selections).forEach((value) => {
@@ -92,12 +90,12 @@ function GameHandler(PlayerOne, PlayerTwo) {
         });
         PlayerOne.ButtonsSelected = [];
         PlayerTwo.ButtonsSelected = [];
-        
         activateGame()
     };
-    function deactivateGame() {
+
+    function endGame(text) {
         const Selections = document.getElementsByClassName('selection_section');
-        
+        outcome.innerHTML = text;
         overlay.style.display = 'flex';
         overlay.style.backgroundImage = 'none';
         overlay.style.backgroundColor = 'white'
@@ -109,13 +107,11 @@ function GameHandler(PlayerOne, PlayerTwo) {
         });
     };
     
-
     function checkVitory(WinningCombinations) {  
         contButtonsClicked += 1;
         let hasWinner = false;
         WinningCombinations.forEach(item => {
             numSequenceOfPlayer = 0;
-
             Object.values(CurrentPlayer.ButtonsSelected).forEach(value => {
                 const result = item.includes(value);
 
@@ -125,45 +121,40 @@ function GameHandler(PlayerOne, PlayerTwo) {
                 if (numSequenceOfPlayer === 3){
                     winner(CurrentPlayer);
                     hasWinner = true
-                    deactivateGame();
+                    endGame();
                 };
             });
         });
-
+        
         if (!hasWinner && contButtonsClicked === 9){
             draw();
         };
         
     };
    
-
     function toMark(selection) {
-        const marker = "marker_" + CurrentPlayer.symbol;
-        selection.classList.add(marker);
-        CurrentPlayer.ButtonsSelected.push(selection.id);
-        console.log(CurrentPlayer.name + "=" + CurrentPlayer.ButtonsSelected);
-        selection.classList.remove('selection_section');
+        if (!selection.classList.contains('marker_X') && !selection.classList.contains('marker_O')){
+            const marker = "marker_" + CurrentPlayer.symbol;
+            selection.classList.add(marker);
+            CurrentPlayer.ButtonsSelected.push(selection.id);
+            console.log(CurrentPlayer.name + "=" + CurrentPlayer.ButtonsSelected);
+            selection.classList.remove('selection_section');
+        };
     };
 
+    
     function winner(plr) {
-        outcome.innerHTML = `${plr.name} venceu!`
-        deactivateGame();
+        endGame(`${plr.name} venceu!`);
     };
     function draw(){
-        outcome.innerHTML = 'Draw'
-        deactivateGame();
+        endGame('Draw');
     };
 
     this.Start = function () {
         activateGame();
     };
-
-    this.End = function () {
-        deactivateGame();
-    };
-
     
-    
+    //Effects and game checkout//
     reset_button.addEventListener('mousedown',()=>{
         reset_button.style.borderColor = "white";
     });
@@ -177,12 +168,15 @@ function GameHandler(PlayerOne, PlayerTwo) {
     });
 
     finished_button.addEventListener('mouseup',()=>{
+        
         finished_button.style.borderColor = 'black';
-        location.reload()
+        window.location.href = window.location.href + "?nocache=" + new Date().getTime();
     });
 };
-export function startGame(){
 
+
+export function startGame(){
+    //Data players request and verification//
     if (sessionStorage.getItem('Players') == null){
         window.location.href = "index.html"
     }
@@ -190,7 +184,6 @@ export function startGame(){
         const Players = JSON.parse(sessionStorage.getItem('Players'));
         const game = new GameHandler(Players.PO,Players.PT);
         game.Start();
-        
     };
 };
 
